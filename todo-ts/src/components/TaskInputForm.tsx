@@ -1,6 +1,8 @@
 import React, {useState, ChangeEvent} from 'react';
 import ITaskEntry, {TaskType} from '../interfaces/ITaskEntry';
-import { useTaskContext } from '../Context/TaskContext';
+
+import { useDispatch } from 'react-redux';
+import { addTask } from '../Redux/taskSlice';
 
 const TaskInputForm: React.FC = () => {
 
@@ -8,10 +10,11 @@ const TaskInputForm: React.FC = () => {
     const [description, setDescription] = useState('');
     const [type, setType] = useState(TaskType.DAILY);
     
-    const {tasks, setTasks} = useTaskContext();
+    const dispatch = useDispatch();
 
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+
       const newTask: ITaskEntry = {
         id: Math.random(),
         title,
@@ -20,7 +23,7 @@ const TaskInputForm: React.FC = () => {
         type,
       };
 
-    setTasks([...tasks,newTask]);
+      dispatch(addTask(newTask))
 
     setTitle('');
     setDescription('');

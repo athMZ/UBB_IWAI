@@ -1,15 +1,14 @@
 import React from 'react';
 import ITaskEntry, {TaskType} from '../interfaces/ITaskEntry';
 import TaskEntry from './TaskEntry';
-import VerticalTaskEntry from './VerticalTaskEntry';
-import { useTaskContext } from '../Context/TaskContext';
+import { useAppSelector } from '../Redux/hooks'
 
 interface TaskGroupProps {
     type: TaskType;
 }
 
 const TaskGroup: React.FC<TaskGroupProps> = ({ type }) => {
-  const {tasks} = useTaskContext();
+  const tasks = useAppSelector((state) => state.tasks)
 
   const filteredTasks = tasks
   .filter(task => task.type === type)
@@ -18,16 +17,10 @@ const TaskGroup: React.FC<TaskGroupProps> = ({ type }) => {
   return (
     <div>
       {filteredTasks.map((task: ITaskEntry) => (
-        <TaskEntry
+       <TaskEntry
           key={task.id}
           task={task}
-        />
-
-        /*<VerticalTaskEntry
-        key={task.id}
-        task={task}
-      />*/
-      
+        />      
       ))}
     </div>
   );

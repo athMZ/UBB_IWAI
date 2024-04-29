@@ -1,12 +1,12 @@
 import React from 'react';
-import { useTaskContext } from '../Context/TaskContext';
+import { useDispatch } from 'react-redux';
+import { resetDailyTasks } from '../Redux/taskSlice';
 
 const DayReset: React.FC = () => {
-  const { tasks, setTasks } = useTaskContext();
+  const dispatch = useDispatch();
 
   const handleReset = () => {
-    const resetTasks = tasks.map(task => ({ ...task, done: false }));
-    setTasks(resetTasks);
+    dispatch(resetDailyTasks());
   };
 
   return (

@@ -1,6 +1,5 @@
 import React from 'react';
 import { TaskType } from './interfaces/ITaskEntry';
-import { TaskProvider } from './Context/TaskContext';
 import TaskGroup from './components/TaskGroup';
 import InputModal from './components/InputModal';
 import DayReset from './components/DayReset';
@@ -11,10 +10,9 @@ const App: React.FC = () => {
 
   return (
     <div className="App mx-auto w-full h-screen sm:px-2 dark:bg-gray-800 dark:text-white">
-      <TaskProvider>
 
       <div className='text-center m-2'>
-          <h1 className='text-4xl font-bold text-blue-500 m-4'>Todo React App with Tailwind & TypeScript</h1>
+          <h1 className='text-4xl font-bold text-blue-500 m-4'>Todo React App with Tailwind, TypeScript & Redux</h1>
           <hr />
         </div>
 
@@ -30,7 +28,7 @@ const App: React.FC = () => {
 
           <div className='text-center sm:col-span-2 lg:col-span-1'>
           <div className='flex flex-col bg-white shadow rounded p-4 dark:bg-gray-700'>
-              <InputModal />
+              <InputModal/>
               <DayReset/>
             </div>
           </div>
@@ -45,7 +43,6 @@ const App: React.FC = () => {
 
         </div>
 
-      </TaskProvider>
     </div>
   );
 }

@@ -2,23 +2,23 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheck } from '@fortawesome/free-solid-svg-icons';
 import ITaskEntry, {TaskType} from '../interfaces/ITaskEntry';
-import { useTaskContext } from '../Context/TaskContext';
+
+import { useDispatch } from 'react-redux';
+import { deleteTask, markTaskComplete } from '../Redux/taskSlice';
 
 interface TaskEntryProps {
     task: ITaskEntry;
 }
 
 const TaskEntry: React.FC<TaskEntryProps> = ({ task }) => {
-    const {tasks, setTasks} = useTaskContext();
+    const dispatch = useDispatch();
 
     const handleComplete = () => {
-        const newTasks = tasks.map(t => t.id === task.id ? { ...t, done: true } : t);
-        setTasks(newTasks);  
+        dispatch(markTaskComplete(task.id));
     };
   
     const handleDelete = () => {
-        const newTasks = tasks.filter(t => t.id !== task.id );
-        setTasks(newTasks);
+        dispatch(deleteTask(task.id));
     };
 
     const Buttons = () => {
