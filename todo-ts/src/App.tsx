@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { TaskType } from './interfaces/ITaskEntry';
 import TaskGroup from './components/TaskGroup';
 import InputModal from './components/InputModal';
 import DayReset from './components/DayReset';
+import { useDispatch } from 'react-redux';
+import { axios_getTasks } from './Redux/apiThunk';
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 
 import './App.css';
 
 const App: React.FC = () => {
+ const dispatch: ThunkDispatch<any, void, Action> = useDispatch();
+
+  useEffect(() => {
+    dispatch(axios_getTasks());
+  }, [dispatch]);
 
   return (
     <div className="App mx-auto w-full h-screen sm:px-2 dark:bg-gray-800 dark:text-white">

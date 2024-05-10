@@ -1,12 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { resetDailyTasks } from '../Redux/taskSlice';
+import { useAppDispatch } from '../Redux/hooks';
+import { axios_resetDay } from '../Redux/apiThunk';
 
 const DayReset: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleReset = () => {
-    dispatch(resetDailyTasks());
+    dispatch(axios_resetDay());
   };
 
   return (

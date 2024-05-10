@@ -3,22 +3,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheck } from '@fortawesome/free-solid-svg-icons';
 import ITaskEntry, {TaskType} from '../interfaces/ITaskEntry';
 
-import { useDispatch } from 'react-redux';
-import { deleteTask, markTaskComplete } from '../Redux/taskSlice';
+import { axios_putTask, axios_deleteTask } from '../Redux/apiThunk';
+import { useAppDispatch } from '../Redux/hooks';
 
 interface TaskEntryProps {
     task: ITaskEntry;
 }
 
 const TaskEntry: React.FC<TaskEntryProps> = ({ task }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleComplete = () => {
-        dispatch(markTaskComplete(task.id));
+        dispatch(axios_putTask({...task, done: true}));
     };
   
     const handleDelete = () => {
-        dispatch(deleteTask(task.id));
+        dispatch(axios_deleteTask(task._id));
     };
 
     const Buttons = () => {

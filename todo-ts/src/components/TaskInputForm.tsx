@@ -1,8 +1,9 @@
 import React, {useState, ChangeEvent} from 'react';
 import ITaskEntry, {TaskType} from '../interfaces/ITaskEntry';
 
-import { useDispatch } from 'react-redux';
 import { addTask } from '../Redux/taskSlice';
+import { axios_postTask } from '../Redux/apiThunk';
+import { useAppDispatch } from '../Redux/hooks';
 
 const TaskInputForm: React.FC = () => {
 
@@ -10,20 +11,20 @@ const TaskInputForm: React.FC = () => {
     const [description, setDescription] = useState('');
     const [type, setType] = useState(TaskType.DAILY);
     
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
 
       const newTask: ITaskEntry = {
-        id: Math.random(),
+        _id: Math.random().toString(),
         title,
         description,
         done: false,
         type,
       };
 
-      dispatch(addTask(newTask))
+      dispatch(axios_postTask(newTask));
 
     setTitle('');
     setDescription('');

@@ -4,7 +4,7 @@ export enum TaskType {
 }
 
 export default interface ITaskEntry {
-    id: number;
+    _id: string;
     title: string;
     description: string;
     done: boolean;

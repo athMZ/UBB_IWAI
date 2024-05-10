@@ -2,7 +2,6 @@ import React from 'react';
 import ITaskEntry, {TaskType} from '../interfaces/ITaskEntry';
 import TaskEntry from './TaskEntry';
 import { useAppSelector } from '../Redux/hooks'
-
 interface TaskGroupProps {
     type: TaskType;
 }
@@ -18,7 +17,7 @@ const TaskGroup: React.FC<TaskGroupProps> = ({ type }) => {
     <div>
       {filteredTasks.map((task: ITaskEntry) => (
        <TaskEntry
-          key={task.id}
+          key={task._id}
           task={task}
         />      
       ))}

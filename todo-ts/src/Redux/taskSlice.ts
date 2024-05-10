@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { axios_deleteTask, axios_getTasks, axios_postTask, axios_putTask, axios_resetDay } from './apiThunk';
 import ITaskEntry from '../interfaces/ITaskEntry';
 
 interface TaskState {
@@ -16,15 +17,15 @@ export const taskSlice = createSlice({
         addTask: (state, action: PayloadAction<ITaskEntry>) => {
             state.tasks.push(action.payload);
         },
-        markTaskComplete: (state, action: PayloadAction<number>) => {
+        markTaskComplete: (state, action: PayloadAction<string>) => {
             let taskId = action.payload;
-            const newTasks = state.tasks.map(t => t.id === taskId ? { ...t, done: true } : t);
+            const newTasks = state.tasks.map(t => t._id === taskId ? { ...t, done: true } : t);
 
             state.tasks = newTasks
         },
-        deleteTask: (state, action: PayloadAction<number>) => {
+        deleteTask: (state, action: PayloadAction<string>) => {
             let taskId = action.payload;
-            const newTasks = state.tasks.filter(t => t.id !== taskId);
+            const newTasks = state.tasks.filter(t => t._id !== taskId);
 
             state.tasks = newTasks
         },
@@ -33,6 +34,30 @@ export const taskSlice = createSlice({
 
             state.tasks = newTasks
         }
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(axios_getTasks.fulfilled, (state, action) => {
+                state.tasks = [...action.payload];
+            })
+            .addCase(axios_postTask.fulfilled, (state, action) => {
+                state.tasks.push(action.payload);
+            })
+            .addCase(axios_putTask.fulfilled, (state, action) => {
+                const index = state.tasks.findIndex(task => task._id === action.payload.id);
+                if (index !== -1) {
+                    state.tasks[index] = action.payload;
+                }
+            })
+            .addCase(axios_deleteTask.fulfilled, (state, action) => {
+                const index = state.tasks.findIndex(task => task._id === action.payload);
+                if (index !== -1) {
+                    state.tasks.splice(index, 1);
+                }
+            })
+            .addCase(axios_resetDay.fulfilled, (state, action) => {
+                state.tasks = state.tasks.map(task => ({ ...task, done: false }));
+            });
     },
 });
 
