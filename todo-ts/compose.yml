@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "7894:27017"
+    networks:
+       app_network:
+        ipv4_address: 172.30.0.2
+    
+  api:
+    image: mongo_todo_api:latest
+    env_file:
+      - .env
+    ports:
+      - "4000:3000"
+    networks:
+       app_network:
+        ipv4_address: 172.30.0.3
+
+  client:
+    image: react-todo
+    ports:
+      - "80:80"
+    networks:
+       app_network:
+        ipv4_address: 172.30.0.4
+
+networks:
+  app_network:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
