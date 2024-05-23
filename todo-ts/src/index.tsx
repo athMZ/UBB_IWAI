@@ -4,17 +4,57 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
+
 import { Provider } from 'react-redux';
 import { store } from './Redux/taskStore';
+
+import Root from './routes/root';
+import ErrorPage from "./routes/error-page";
+import Daily from './routes/daily';
+import General from './routes/general';
+import Add from './routes/add';
+import Details from './routes/details';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root/>,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "all",
+        element: <App />,
+      },
+      {
+        path: "daily",
+        element: <Daily />,
+      },
+      {
+        path: "general",
+        element: <General />,
+      },
+      {
+        path: "add",
+        element: <Add />,
+      },
+      {
+        path: "details/:id",
+        element: <Details />,
+      }
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-        <App />
-    </Provider>,
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
