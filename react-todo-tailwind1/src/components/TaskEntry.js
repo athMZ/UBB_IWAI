@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { TaskContext } from '../App';
+import '../TaskEntry.scss';
 
 function TaskEntry(props) {
 
@@ -27,26 +28,26 @@ function TaskEntry(props) {
     function Buttons() {
         if (props.type === 'daily') {
             return (
-                <div className='flex justify-between space-x-4'>
+                <div className='button-container'>
                     <button
                         onClick={handleComplete}
-                        className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2'>
+                        className='complete-button'>
                         <FontAwesomeIcon icon={faCheck} />
                     </button>
 
                     <button
                         onClick={handleDelete}
-                        className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-2'>
+                        className='delete-button'>
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </div>
             )
         } else {
             return (
-                <div className='flex justify-end'>
+                <div className='button-container'>
                     <button
                         onClick={handleDelete}
-                        className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2'>
+                        className='complete-button'>
                         <FontAwesomeIcon icon={faCheck} />
                     </button>
                 </div>
@@ -55,10 +56,10 @@ function TaskEntry(props) {
     }
 
     return (
-        <div className="bg-white dark:bg-gray-800 shadow rounded p-4 mt-4 dark:text-white">
-            <h2 className="text-xl font-bold">{props.title}</h2>
-            <p className="text-gray-700 dark:text-gray-300">{props.description}</p>
-            <hr className="my-2" />
+        <div className="task-entry">
+            <h2 className="task-title">{props.title}</h2>
+            <p className="task-description">{props.description}</p>
+            <hr className="divider" />
             <Buttons />
         </div>
     )

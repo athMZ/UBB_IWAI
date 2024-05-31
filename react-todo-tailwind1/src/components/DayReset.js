@@ -1,6 +1,6 @@
 import { React, useContext } from 'react';
-import CustomButton from './CustomButton';
 import { TaskContext } from '../App';
+import '../DayReset.scss';
 
 function DayReset() {
     const { tasks, setTasks } = useContext(TaskContext);
@@ -18,7 +18,7 @@ function DayReset() {
     }
 
     return (
-        <CustomButton onClick={resetDailyTasks}>Reset Daily Tasks</CustomButton>
+        <button className="reset-button" onClick={resetDailyTasks}>Reset Daily Tasks</button>
     )
 }
 

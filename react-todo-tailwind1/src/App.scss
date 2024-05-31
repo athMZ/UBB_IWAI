@@ -1,0 +1,69 @@
+@import "variables";
+
+.App {
+  overflow-x: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100vh;
+  background-color: $color-background;
+  color: $color-text;
+
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-bottom: 2px solid $color-text;
+
+    h1 {
+      color: $color-text;
+    }
+  }
+
+  .task-grid {
+    display: flex;
+    justify-content: space-between;
+
+    .daily-tasks-section,
+    .general-tasks-section {
+      flex: 1;
+      margin: 1em;
+
+      h2 {
+        color: $color-text;
+      }
+
+      input {
+        background-color: $color-input;
+        color: $color-input-text;
+      }
+    }
+
+    .input-modal-section {
+      flex: 1;
+      margin: 1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+
+      h2 {
+        color: $color-text;
+      }
+
+      input {
+        background-color: $color-input;
+        color: $color-input-text;
+      }
+    }
+  }
+
+  button {
+    border-radius: 5px;
+  }
+}
